@@ -24,7 +24,7 @@ class SpringDemoApplicationTests {
 //        simpleMailMessage.setTo("linhw@dist.com.cn");
         simpleMailMessage.setTo("623010541@qq.com");
         simpleMailMessage.setSubject("hello world");
-        simpleMailMessage.setText("嗨，臭宝");
+        simpleMailMessage.setText("嗨，臭宝 ");
         sender.send(simpleMailMessage);
 
 //        MimeMessage mimeMessage = sender.createMimeMessage();

@@ -1,17 +1,13 @@
-package com.lhw.spring;
+package com.lhw.mail;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.mail.javamail.MimeMessageHelper;
-
-import javax.mail.internet.MimeMessage;
-import java.io.File;
 
 @SpringBootTest
-class SpringDemoApplicationTests {
+class MailApplicationTests {
 
     @Autowired
     JavaMailSenderImpl sender;

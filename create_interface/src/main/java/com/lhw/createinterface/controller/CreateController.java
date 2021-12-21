@@ -1,6 +1,6 @@
-package com.lhw.spring.controller;
+package com.lhw.createinterface.controller;
 
-import com.lhw.spring.service.CreateFacade;
+import com.lhw.createinterface.service.CreateFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

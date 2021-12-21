@@ -1,4 +1,4 @@
-package com.lhw.spring.handler;
+package com.lhw.createinterface.handler;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

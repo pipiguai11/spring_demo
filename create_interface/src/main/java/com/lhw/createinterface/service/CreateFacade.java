@@ -1,4 +1,4 @@
-package com.lhw.spring.service;
+package com.lhw.createinterface.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;

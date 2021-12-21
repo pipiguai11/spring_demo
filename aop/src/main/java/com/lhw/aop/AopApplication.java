@@ -1,13 +1,13 @@
-package com.lhw.spring;
+package com.lhw.aop;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringDemoApplication {
+public class AopApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringDemoApplication.class, args);
+        SpringApplication.run(AopApplication.class, args);
     }
 
 }

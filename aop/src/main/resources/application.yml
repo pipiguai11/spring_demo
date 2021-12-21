@@ -1,1 +1,38 @@
 
+spring:
+  jpa:
+    properties:
+      hibernate:
+        default_schema: lhw
+        current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
+    hibernate:
+      ddl-auto: update # 数据库的操作模式
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show_sql: true
+  aop:
+    auto: true
+    proxy-target-class: true # 默认设置为false,使用的是标准Java动态代理的实现（接口），而不是cglib（类）
+  datasource:
+    username: lhw
+    password: 12345678
+    url: jdbc:postgresql://127.0.0.1:5432/postgres?currentSchema=lhw
+    driver-class-name: org.postgresql.Driver
+    maxActive: 200
+    initialSize: 10
+    minIdle: 10
+    maxWait: 60000
+    testWhileIdle: true
+    removeAbandoned: true
+    removeAbandonedTimeout: 1800
+    logAbandoned: false
+    minEvictableIdleTimeMillis: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    testOnBorrow: false
+    validationQuery: select 1
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 200
+    monitor: false # 是否启用数据库连接池监控，开启后损失部分性能
+  sql:
+    init:
+      encoding: utf-8 # 解决中文乱码

@@ -1,0 +1,32 @@
+lhw:
+  simple:
+    userName: test_username
+#  default: #测试默认值
+#    value: test_default_value
+
+#  static: #测试静态属性注入
+#    value: test_static_value
+
+  base:  # 测试基本数据类型数据注入
+    a: 2
+    b: 101
+    c: 41232
+    d: 1215323121312
+    e: 13.14
+    f: 14.151
+    g: true
+    h: t
+
+  array:  # 测试数组元素注入，注意：每个元素之间需要用逗号隔开，不能用空格
+    value: 5,4,3,2,1
+
+  list:
+    value: lhw,lwx,lxj,zmj,ljx,lqy,yjt
+    default: test,list,default
+
+  set:
+    value: lhw,lwx,lxj,zmj,ljx,lqy,yjt
+#    default: test,set,default
+
+  map: # 注入map，这里注意：value就是一个字符串，相当于是一个json
+    value: "{'lhw': '18','lwx': '18','ljx': '18'}"

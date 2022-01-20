@@ -24,6 +24,7 @@
         <module>jpa</module>
         <module>filter</module>
         <module>interceptor</module>
+        <module>distributed_id</module>
     </modules>
 
     <properties>
@@ -31,6 +32,7 @@
         <oracle.ojdbc>11.2.0.3</oracle.ojdbc>
         <druid.version>1.0.10</druid.version>
         <postgresql.version>42.2.5</postgresql.version>
+        <uid.generator.version>0.0.4-RELEASE</uid.generator.version>
     </properties>
     <dependencies>
         <dependency>
@@ -47,6 +49,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
         </dependency>
 
 <!--        <dependency>-->
@@ -75,6 +82,35 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid</artifactId>
                 <version>${druid.version}</version>
+            </dependency>
+
+            <!-- uid-generator -->
+            <dependency>
+                <groupId>com.xfvape.uid</groupId>
+                <artifactId>uid-generator</artifactId>
+                <version>${uid.generator.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>log4j-over-slf4j</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>ch.qos.logback</groupId>
+                        <artifactId>logback-classic</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.mybatis</groupId>
+                        <artifactId>mybatis-spring</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.mybatis</groupId>
+                        <artifactId>mybatis</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
         </dependencies>
     </dependencyManagement>

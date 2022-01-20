@@ -1,9 +1,13 @@
 ### 模块说明
 | 模块名 | 模块说明 |
 | ---- | ---- |
+| annotation | 注解模块，spring中的注解demo |
 | main | 邮件服务，自定义邮件发送 |
 | create_interface | 自定义运行时动态创建接口服务（类似低代码） |
 | aop  | spring aop测试|
+| datasource | 数据库demo |
+| proxy | 代理demo|
+| jpa | jpa的demo| 
 
 
 

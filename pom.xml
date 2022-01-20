@@ -20,6 +20,8 @@
         <module>create_interface</module>
         <module>annotation</module>
         <module>datasource</module>
+        <module>proxy</module>
+        <module>jpa</module>
     </modules>
 
     <properties>

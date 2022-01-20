@@ -3,7 +3,7 @@ spring:
   jpa:
     properties:
       hibernate:
-        default_schema: lhw
+        default_schema: lhw #public
         current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
     hibernate:
       ddl-auto: update # 数据库的操作模式
@@ -14,8 +14,8 @@ spring:
     auto: true
     proxy-target-class: true # 默认设置为false,使用的是标准Java动态代理的实现（接口），而不是cglib（类）
   datasource:
-    username: lhw
-    password: 12345678
+    username: lhw #postgres
+    password: 12345678 #postgres
     url: jdbc:postgresql://127.0.0.1:5432/postgres?currentSchema=lhw
     driver-class-name: org.postgresql.Driver
     maxActive: 200

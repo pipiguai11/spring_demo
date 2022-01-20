@@ -1,0 +1,30 @@
+spring:
+  datasource:
+    username: lhw
+    password: 12345678
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@127.0.0.1:1521/ORCL
+    druid:
+      #filters: stat,wall,log4j,config
+      initial-size: 3
+      max-active: 200
+      min-idle: 3
+      max-wait: 60000
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: select 1 from dual
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      max-open-prepared-statements: 50
+      remove-abandoned: true
+      remove-abandoned-timeout: 180
+  jpa:
+    show-sql: true
+  sql:
+    init:
+      encoding: utf-8
+server:
+  port: 8888

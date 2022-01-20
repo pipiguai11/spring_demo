@@ -18,6 +18,8 @@
         <module>mail</module>
         <module>aop</module>
         <module>create_interface</module>
+        <module>annotation</module>
+        <module>datasource</module>
     </modules>
 
     <properties>

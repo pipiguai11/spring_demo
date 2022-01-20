@@ -82,9 +82,12 @@ public class BaseRepositoryImpl<ENTITY,ID> extends SimpleJpaRepository<ENTITY,ID
 //            query.where(predicate,predicate2);
 //            return null;
 //        };
+        System.out.println("自定义的findOne方法");
         Specification<ENTITY> specification = new NormalFieldSpecification<>(jpaEntityInformation,id);
         TypedQuery<ENTITY> query = super.getQuery(specification, Sort.unsorted());
-        if (query.getResultList().size() == 1) return query.getSingleResult();
+        if (query.getResultList().size() == 1){
+            return query.getSingleResult();
+        }
         log.warn("result size more than 1");
         return null;
     }

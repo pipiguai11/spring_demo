@@ -23,6 +23,7 @@
         <module>proxy</module>
         <module>jpa</module>
         <module>filter</module>
+        <module>interceptor</module>
     </modules>
 
     <properties>

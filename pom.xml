@@ -25,6 +25,7 @@
         <module>filter</module>
         <module>interceptor</module>
         <module>distributed_id</module>
+        <module>transaction</module>
     </modules>
 
     <properties>

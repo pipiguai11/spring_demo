@@ -1,0 +1,11 @@
+spring:
+  data:
+    mongodb:
+      host: 127.0.0.1
+      port: 27017
+      authentication-database: lhw_mongo #admin # 当mongodb是以验证方式启动时，就需要这个配置，需要验证该库中确实存在对应的用户（lhw_mongo），因为我在admin库中和lhw_mongo库中都创建了lhw_mongo用户，因此，用哪个库验证都是没问题的
+      database: lhw_mongo
+      username: lhw_mongo
+      password: "12345678"  # 这里要注意的一点是，如果密码是纯数字的话，必须带上双引号，否则验证会失败，因为底层是用char[]数组设置的，必须是字符串
+server:
+  port: 8092

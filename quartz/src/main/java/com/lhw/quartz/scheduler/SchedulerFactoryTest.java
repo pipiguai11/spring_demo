@@ -2,7 +2,9 @@ package com.lhw.quartz.scheduler;
 
 import com.lhw.quartz.job.HelloJob;
 import com.lhw.quartz.job.HelloJob2;
+import com.lhw.quartz.jobdetail.JobDetailHandler;
 import com.lhw.quartz.model.Task;
+import com.lhw.quartz.trigger.TriggerHandler;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 
@@ -23,32 +25,20 @@ public class SchedulerFactoryTest {
         Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
         scheduler.getContext().putIfAbsent("skey","myScheduler");
 
-        //定时调度，每5秒执行一次
-        CronScheduleBuilder cronScheduleBuilder = CronScheduleBuilder.cronSchedule("0/5 * * * * ?")
-                .withMisfireHandlingInstructionDoNothing();
-        //构建触发器
-        Trigger trigger = TriggerBuilder.newTrigger()
-                .withIdentity("trigger","group1")
-                .usingJobData("triKey1","lalalalal")
-                .withSchedule(cronScheduleBuilder).build();
-        trigger.getJobDataMap().putIfAbsent("cron","0/5 * * * * ? ");
-
         Task task = initTask();
         //构建任务，指定任务对象（HelloJob），调度器会去调度它的execute方法
-        JobDetail jobDetail = JobBuilder.newJob(HelloJob.class)
-                .usingJobData("id",task.getId())
-                .withIdentity("myJob","myGroup")
-                .build();
-        jobDetail.getJobDataMap().putIfAbsent(task.getId(), task);
+        JobDetail jobDetail = JobDetailHandler.createJobDetail(HelloJob.class);
+        JobDetailHandler.addMapToJobDataMap(jobDetail, "id", task.getId());
+        JobDetailHandler.addMapToJobDataMap(jobDetail, task.getId(), task);
+        //构建触发器
+        Trigger trigger = TriggerHandler.createCronTrigger();
+        TriggerHandler.addMapToJobDataMap(trigger,"cron","0/5 * * * * ? ");
 
         //新建一个任务，和一个触发器
-        JobDetail newJobDetail = JobBuilder.newJob(HelloJob2.class).withIdentity("myJob2","myGroup").build();
-        newJobDetail.getJobDataMap().putIfAbsent("name","lhw");
-        Trigger newtTrigger = TriggerBuilder.newTrigger()
-                .withIdentity("trigger1", "group1")
-                .usingJobData("t1", "tv1")
-                .withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(3)
-                        .repeatForever()).build();
+        JobDetail newJobDetail = JobDetailHandler.createJobDetail(HelloJob2.class, "myJob2", "myGroup");
+        //这里设置的key-value是在初始化的时候被setting到Job（HelloJob2）对象中的，可以不用通过JobDataMap去获取，当然要用它获取也是可以的
+        JobDetailHandler.addMapToJobDataMap(newJobDetail, "name", "lhw");
+        Trigger newtTrigger = TriggerHandler.createSimpleTrigger("trigger1", "group1");
 
         //设置调度器调度任务，并启动调度器
         scheduler.scheduleJob(jobDetail,trigger);

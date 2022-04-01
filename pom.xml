@@ -12,6 +12,7 @@
     <artifactId>spring_demo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>spring_demo</name>
+    <packaging>pom</packaging>
     <description>Demo project for Spring Boot</description>
 
     <modules>

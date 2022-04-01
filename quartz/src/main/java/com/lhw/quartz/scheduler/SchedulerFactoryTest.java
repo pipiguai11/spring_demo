@@ -43,6 +43,7 @@ public class SchedulerFactoryTest {
 
         //新建一个任务，和一个触发器
         JobDetail newJobDetail = JobBuilder.newJob(HelloJob2.class).withIdentity("myJob2","myGroup").build();
+        //这里设置的key-value是在初始化的时候被setting到Job（HelloJob2）对象中的，可以不用通过JobDataMap去获取，当然要用它获取也是可以的
         newJobDetail.getJobDataMap().putIfAbsent("name","lhw");
         Trigger newtTrigger = TriggerBuilder.newTrigger()
                 .withIdentity("trigger1", "group1")

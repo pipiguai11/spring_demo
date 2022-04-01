@@ -1,6 +1,8 @@
 package com.lhw.quartz.scheduler;
 
 import com.lhw.quartz.job.annotation.PersistJobDataAfterJob;
+import com.lhw.quartz.jobdetail.JobDetailHandler;
+import com.lhw.quartz.trigger.TriggerHandler;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 
@@ -17,14 +19,11 @@ public class PersistJobDataAfterJobSchedulerTest {
         scheduler.getContext().putIfAbsent("skey","myScheduler");
 
         //新建一个任务，和一个触发器
-        JobDetail jobDetail = JobBuilder.newJob(PersistJobDataAfterJob.class).withIdentity("concurrentJob","myGroup").build();
-        jobDetail.getJobDataMap().putIfAbsent(PersistJobDataAfterJob.TEST_NUM,0);
-        jobDetail.getJobDataMap().putIfAbsent(PersistJobDataAfterJob.TEST_NAME,"lhw");
+        JobDetail jobDetail = JobDetailHandler.createJobDetail(PersistJobDataAfterJob.class, "concurrentJob","myGroup");
+        JobDetailHandler.addMapToJobDataMap(jobDetail, PersistJobDataAfterJob.TEST_NUM,0);
+        JobDetailHandler.addMapToJobDataMap(jobDetail, PersistJobDataAfterJob.TEST_NAME,"lhw");
 
-        Trigger trigger = TriggerBuilder.newTrigger()
-                .withIdentity("trigger1", "group1")
-                .withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(3)
-                        .repeatForever()).build();
+        Trigger trigger = TriggerHandler.createSimpleTrigger();
 
         //设置调度器调度任务，并启动调度器
         scheduler.scheduleJob(jobDetail,trigger);

@@ -2,6 +2,8 @@ package com.lhw.quartz.scheduler;
 
 import com.lhw.quartz.job.HelloJob2;
 import com.lhw.quartz.job_factory.MyJobFactory;
+import com.lhw.quartz.jobdetail.JobDetailHandler;
+import com.lhw.quartz.trigger.TriggerHandler;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 
@@ -20,14 +22,10 @@ public class UseMyJobFactorySchedulerTest {
         scheduler.setJobFactory(new MyJobFactory());
 
         //新建一个任务，和一个触发器
-        JobDetail newJobDetail = JobBuilder.newJob(HelloJob2.class).withIdentity("myJob2","myGroup").build();
+        JobDetail newJobDetail = JobDetailHandler.createJobDetail(HelloJob2.class, "myJob2","myGroup");
         //这里就需要注意了，因为我上面用的是自定义的Job初始化工厂，在初始化的时候没有调用setting方法进行属性绑定，因此这个Job无法直接通过属性去获取该值，只能是通过JobDataMap对象去获取
         newJobDetail.getJobDataMap().putIfAbsent("name","lhw");
-        Trigger newtTrigger = TriggerBuilder.newTrigger()
-                .withIdentity("trigger1", "group1")
-                .usingJobData("t1", "tv1")
-                .withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(3)
-                        .repeatForever()).build();
+        Trigger newtTrigger = TriggerHandler.createSimpleTrigger();
 
         //设置调度器调度任务，并启动调度器
         scheduler.scheduleJob(newJobDetail,newtTrigger);

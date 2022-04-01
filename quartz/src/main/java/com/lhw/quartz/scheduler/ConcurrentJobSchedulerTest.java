@@ -1,6 +1,8 @@
 package com.lhw.quartz.scheduler;
 
 import com.lhw.quartz.job.annotation.DisallowConcurrentJob;
+import com.lhw.quartz.jobdetail.JobDetailHandler;
+import com.lhw.quartz.trigger.TriggerHandler;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 
@@ -18,18 +20,12 @@ public class ConcurrentJobSchedulerTest {
         scheduler.getContext().putIfAbsent("skey","myScheduler");
 
         //新建一个任务，和一个触发器
-        JobDetail jobDetail = JobBuilder.newJob(DisallowConcurrentJob.class).withIdentity("concurrentJob","myGroup").build();
-        Trigger trigger = TriggerBuilder.newTrigger()
-                .withIdentity("trigger1", "group1")
-                .withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(3)
-                        .repeatForever()).build();
+        JobDetail jobDetail = JobDetailHandler.createJobDetail(DisallowConcurrentJob.class, "concurrentJob","myGroup");
+        Trigger trigger = TriggerHandler.createSimpleTrigger();
 
         //再新建一个任务，和一个触发器，使用的同一个Job实例，测试并行
-        JobDetail newJobDetail = JobBuilder.newJob(DisallowConcurrentJob.class).withIdentity("concurrentJob2","myGroup").build();
-        Trigger newtTrigger = TriggerBuilder.newTrigger()
-                .withIdentity("trigger2", "group1")
-                .withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(3)
-                        .repeatForever()).build();
+        JobDetail newJobDetail = JobDetailHandler.createJobDetail(DisallowConcurrentJob.class, "concurrentJob2","myGroup");
+        Trigger newtTrigger = TriggerHandler.createSimpleTrigger("trigger2");
 
         //设置调度器调度任务，并启动调度器
         scheduler.scheduleJob(jobDetail,trigger);

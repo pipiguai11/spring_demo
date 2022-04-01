@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    username: quartz #postgres
+    password: 12345678 #postgres
+    url: jdbc:postgresql://127.0.0.1:5432/quartz?currentSchema=quartz
+    driver-class-name: org.postgresql.Driver
+    name: myQuartzDatasource
+  quartz:
+    job-store-type: jdbc #持久化到数据库
+    jdbc:
+      initialize-schema: never
+    properties:
+      org:
+        quartz:
+          datasource: myQuartzDatasource
+          scheduler:
+            instancName: clusteredScheduler
+            instanceId: AUTO
+          jobStore:
+            class: org.springframework.scheduling.quartz.LocalDataSourceJobStore # springboot 2.5.6版本之后就不是用JobStoreTX了 #org.quartz.impl.jdbcjobstore.JobStoreTX
+            driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate #StdJDBCDelegate说明支持集群
+            tablePrefix: qrtz_
+            isClustered: true
+            clusterCheckinInterval: 1000
+            useProperties: false
+          threadPool:
+            class: org.quartz.simpl.SimpleThreadPool
+            threadCount: 20
+            threadPriority: 5

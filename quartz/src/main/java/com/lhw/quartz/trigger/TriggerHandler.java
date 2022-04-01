@@ -40,8 +40,8 @@ public class TriggerHandler {
     }
 
     public static Trigger createCronTrigger(String triggerName, String groupName) {
-        //定时调度，每5秒执行一次
-        CronScheduleBuilder cronScheduleBuilder = CronScheduleBuilder.cronSchedule("0/5 * * * * ?")
+        //定时调度，每10秒执行一次
+        CronScheduleBuilder cronScheduleBuilder = CronScheduleBuilder.cronSchedule("0/10 * * * * ?")
                 .withMisfireHandlingInstructionDoNothing();
         //构建触发器
         Trigger trigger = TriggerBuilder.newTrigger()

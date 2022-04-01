@@ -4,6 +4,7 @@ import com.lhw.quartz.model.Task;
 import org.quartz.*;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * @author ：linhw
@@ -36,7 +37,8 @@ public class HelloJob implements Job {
                 .append("|--- startTime : " + sdf.format(task.getStartTime()) + "\n")
                 .append("|--- endTime" + sdf.format(task.getEndTime()) + "\n")
                 .append("|--- status : " + task.getStatus() + "\n")
-                .append("|--- taskType : " + task.getTaskType());
+                .append("|--- taskType : " + task.getTaskType() + "\n")
+                .append("|--- nowTime : " + sdf.format(new Date()));
         System.out.println(sb.toString());
 
         System.out.println("触发器详情：");

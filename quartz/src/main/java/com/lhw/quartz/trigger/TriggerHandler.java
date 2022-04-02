@@ -12,6 +12,11 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author ：linhw
  * @date ：22.4.1 15:39
  * @description：触发器处理器
+ *
+ *      不论是SimpleTrigger还是CronTrigger都是通过TriggerBuilder构建的，只是内部用的调度器不一样
+ *      SimpleTrigger用的SimpleScheduleBuilder
+ *      CronTrigger用的CronScheduleBuilder
+ *
  * @modified By：
  */
 public class TriggerHandler {
@@ -27,8 +32,11 @@ public class TriggerHandler {
     private static String DEFAULT_CRON = "0/10 * * * * ?";
 
     /**
-     * 构建简单触发器（即时启动）
+     * 构建简单触发器（即时启动）  SimpleTrigger
      *      在创建完成后马上启动
+     *
+     *
+     *
      * @return
      */
     public static Trigger createSimpleTrigger(TriggerInstructionsEnum... instructionsEnums) {

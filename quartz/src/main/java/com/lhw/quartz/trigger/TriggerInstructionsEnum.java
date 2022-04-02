@@ -7,7 +7,7 @@ package com.lhw.quartz.trigger;
  * @modified By：
  */
 
-public enum InstructionsEnum {
+public enum TriggerInstructionsEnum {
 
     REPEAT_FOREVER(0,"重复执行", "repeatForever"),
     INTERVAL_IN_HOURS(1,"间隔n个小时执行一次","withIntervalInHours"),
@@ -51,14 +51,14 @@ public enum InstructionsEnum {
     private String desc;
     private String instruction;
 
-    InstructionsEnum(int id, String desc, String instruction) {
+    TriggerInstructionsEnum(int id, String desc, String instruction) {
         this._id = id;
         this.desc = desc;
         this.instruction = instruction;
     }
 
-    public static InstructionsEnum getInstruction(int id) {
-        for (InstructionsEnum value : InstructionsEnum.values()) {
+    public static TriggerInstructionsEnum getInstruction(int id) {
+        for (TriggerInstructionsEnum value : TriggerInstructionsEnum.values()) {
             if (value.getId() == id) {
                 return value;
             }

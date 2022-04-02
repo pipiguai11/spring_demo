@@ -3,7 +3,7 @@ package com.lhw.quartz.scheduler;
 import com.lhw.quartz.job.HelloJob2;
 import com.lhw.quartz.job_factory.MyJobFactory;
 import com.lhw.quartz.jobdetail.JobDetailHandler;
-import com.lhw.quartz.trigger.InstructionsEnum;
+import com.lhw.quartz.trigger.TriggerInstructionsEnum;
 import com.lhw.quartz.trigger.TriggerHandler;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
@@ -30,7 +30,7 @@ public class UseMyJobFactorySchedulerTest {
         //在创建触发器的时候指定它的一个调度策略，n秒过后执行一次
 //        Trigger newtTrigger = TriggerHandler.createSimpleTrigger(InstructionsEnum.INTERVAL_IN_SECONDS);
         //在创建触发器的时候指定它的一个调度策略，如下指定它为重复执行，每n秒执行一次
-        Trigger newtTrigger = TriggerHandler.createSimpleTrigger(InstructionsEnum.INTERVAL_IN_SECONDS,InstructionsEnum.REPEAT_FOREVER);
+        Trigger newtTrigger = TriggerHandler.createSimpleTrigger(TriggerInstructionsEnum.INTERVAL_IN_SECONDS, TriggerInstructionsEnum.REPEAT_FOREVER);
 
         //设置调度器调度任务，并启动调度器
         scheduler.scheduleJob(newJobDetail,newtTrigger);

@@ -28,15 +28,15 @@ public class TriggerHandler {
      * 构建简单触发器
      * @return
      */
-    public static Trigger createSimpleTrigger(InstructionsEnum... instructionsEnums){
+    public static Trigger createSimpleTrigger(TriggerInstructionsEnum... instructionsEnums){
         return createSimpleTrigger(TRIGGER_NAME, GROUP_NAME, instructionsEnums);
     }
 
-    public static Trigger createSimpleTrigger(String triggerName, InstructionsEnum... instructionsEnums){
+    public static Trigger createSimpleTrigger(String triggerName, TriggerInstructionsEnum... instructionsEnums){
         return createSimpleTrigger(triggerName, GROUP_NAME);
     }
 
-    public static Trigger createSimpleTrigger(String triggerName, String group, InstructionsEnum... instructionsEnums){
+    public static Trigger createSimpleTrigger(String triggerName, String group, TriggerInstructionsEnum... instructionsEnums){
 
         String triggerKey = group + "_" + triggerName;
         buildTriggerInstruction(triggerKey, instructionsEnums);
@@ -90,9 +90,9 @@ public class TriggerHandler {
      * @param key
      * @param instructionsEnums
      */
-    private static void buildTriggerInstruction(String key, InstructionsEnum... instructionsEnums){
+    private static void buildTriggerInstruction(String key, TriggerInstructionsEnum... instructionsEnums){
         long instruction = 0;
-        for (InstructionsEnum instructionsEnum : instructionsEnums) {
+        for (TriggerInstructionsEnum instructionsEnum : instructionsEnums) {
             //先按照枚举的ordinal值按位移动
             long temp = 1 << instructionsEnum.ordinal();
             //然后进行或运算，得到一个新的数值
@@ -120,7 +120,7 @@ public class TriggerHandler {
 
         Class<?> simpleScheduleBuilderClazz = simpleScheduleBuilder.getClass();
         try {
-            for (int i = 0 ; i < InstructionsEnum.getLength() ; ++i){
+            for (int i = 0; i < TriggerInstructionsEnum.getLength() ; ++i){
                 //如果当前二进制数最后一位为0，直接进入下一次循环
                 if ((instruction & 1) == 0){
                     instruction = instruction >> 1;
@@ -129,21 +129,21 @@ public class TriggerHandler {
 
                 Number arg = null;
                 Method method = null;
-                if (InstructionsEnum.INTERVAL_IN_MILLISECONDS.ordinal() == i){
+                if (TriggerInstructionsEnum.INTERVAL_IN_MILLISECONDS.ordinal() == i){
                     arg = DEFAULT_SECOND * 1000;
                     method = simpleScheduleBuilderClazz
-                            .getDeclaredMethod(InstructionsEnum.getInstruction(i).getInstruction(), long.class);
+                            .getDeclaredMethod(TriggerInstructionsEnum.getInstruction(i).getInstruction(), long.class);
                     method.invoke(simpleScheduleBuilder,(long)arg);
-                }else if (InstructionsEnum.INTERVAL_IN_HOURS.ordinal()== i ||
-                        InstructionsEnum.INTERVAL_IN_MINUTES.ordinal() == i ||
-                        InstructionsEnum.INTERVAL_IN_SECONDS.ordinal() == i) {
+                }else if (TriggerInstructionsEnum.INTERVAL_IN_HOURS.ordinal()== i ||
+                        TriggerInstructionsEnum.INTERVAL_IN_MINUTES.ordinal() == i ||
+                        TriggerInstructionsEnum.INTERVAL_IN_SECONDS.ordinal() == i) {
                     arg = DEFAULT_SECOND;
                     method = simpleScheduleBuilderClazz
-                            .getDeclaredMethod(InstructionsEnum.getInstruction(i).getInstruction(), int.class);
+                            .getDeclaredMethod(TriggerInstructionsEnum.getInstruction(i).getInstruction(), int.class);
                     method.invoke(simpleScheduleBuilder, (int)arg);
                 }else {
                     method = simpleScheduleBuilderClazz
-                            .getDeclaredMethod(InstructionsEnum.getInstruction(i).getInstruction());
+                            .getDeclaredMethod(TriggerInstructionsEnum.getInstruction(i).getInstruction());
                     method.invoke(simpleScheduleBuilder);
                 }
 

@@ -3,7 +3,9 @@ package com.lhw.quartz.trigger;
 import org.quartz.*;
 
 import java.lang.reflect.Method;
+import java.util.Date;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -25,26 +27,58 @@ public class TriggerHandler {
     private static String DEFAULT_CRON = "0/10 * * * * ?";
 
     /**
-     * 构建简单触发器
+     * 构建简单触发器（即时启动）
+     *      在创建完成后马上启动
      * @return
      */
-    public static Trigger createSimpleTrigger(TriggerInstructionsEnum... instructionsEnums){
-        return createSimpleTrigger(TRIGGER_NAME, GROUP_NAME, instructionsEnums);
+    public static Trigger createSimpleTrigger(TriggerInstructionsEnum... instructionsEnums) {
+        return createSimpleTrigger(TRIGGER_NAME, GROUP_NAME, null, null, instructionsEnums);
     }
 
-    public static Trigger createSimpleTrigger(String triggerName, TriggerInstructionsEnum... instructionsEnums){
-        return createSimpleTrigger(triggerName, GROUP_NAME);
+    public static Trigger createSimpleTrigger(String triggerName, TriggerInstructionsEnum... instructionsEnums) {
+        return createSimpleTrigger(triggerName, GROUP_NAME, null, null ,instructionsEnums);
     }
 
-    public static Trigger createSimpleTrigger(String triggerName, String group, TriggerInstructionsEnum... instructionsEnums){
+    /**
+     * 创建定时任务
+     *
+     *      指定运行时间，包括启动时间以及结束时间
+     *
+     * @param startTime
+     * @param endTime
+     * @param instructionsEnums
+     * @return
+     */
+    public static Trigger createSimpleTrigger(Date startTime, Date endTime, TriggerInstructionsEnum... instructionsEnums) {
+        return createSimpleTrigger(TRIGGER_NAME, GROUP_NAME, startTime, endTime, instructionsEnums);
+    }
+
+    public static Trigger createSimpleTrigger(String triggerName, String group, TriggerInstructionsEnum... instructionsEnums) {
+        return createSimpleTrigger(triggerName, group, null, null, instructionsEnums);
+    }
+
+    public static Trigger createSimpleTrigger(String triggerName, String group, Date startTime, Date endTime, TriggerInstructionsEnum... instructionsEnums) {
+        if (Objects.nonNull(startTime) && Objects.nonNull(endTime) && startTime.after(endTime)){
+            throw new IllegalArgumentException("endTime is not allow before startTime");
+        }
 
         String triggerKey = group + "_" + triggerName;
         buildTriggerInstruction(triggerKey, instructionsEnums);
         ScheduleBuilder scheduleBuilder = getSchedulerBuilder(triggerKey);
 
+        TriggerBuilder triggerBuilder = TriggerBuilder.newTrigger();
+        if (startTime != null) {
+            triggerBuilder.startAt(startTime);
+        }
+        if (endTime != null) {
+            triggerBuilder.endAt(endTime);
+        }
+
         //withIntervalInSeconds指定以秒为单位重复执行，repeatForever指定无限重复
-        return TriggerBuilder.newTrigger()
-                .withIdentity(triggerName, group)
+//        return TriggerBuilder.newTrigger()
+//                .withIdentity(triggerName, group)
+//                .withSchedule(scheduleBuilder).build();
+        return triggerBuilder.withIdentity(triggerName, group)
                 .withSchedule(scheduleBuilder).build();
     }
 
@@ -114,6 +148,7 @@ public class TriggerHandler {
         SimpleScheduleBuilder simpleScheduleBuilder = SimpleScheduleBuilder.simpleSchedule();
 
         if (instruction == 0){
+            //默认使用以下策略
             simpleScheduleBuilder.withIntervalInSeconds(DEFAULT_SECOND).repeatForever();
             return simpleScheduleBuilder;
         }
@@ -134,7 +169,7 @@ public class TriggerHandler {
                     method = simpleScheduleBuilderClazz
                             .getDeclaredMethod(TriggerInstructionsEnum.getInstruction(i).getInstruction(), long.class);
                     method.invoke(simpleScheduleBuilder,(long)arg);
-                }else if (TriggerInstructionsEnum.INTERVAL_IN_HOURS.ordinal()== i ||
+                }else if (TriggerInstructionsEnum.INTERVAL_IN_HOURS.ordinal() == i ||
                         TriggerInstructionsEnum.INTERVAL_IN_MINUTES.ordinal() == i ||
                         TriggerInstructionsEnum.INTERVAL_IN_SECONDS.ordinal() == i) {
                     arg = DEFAULT_SECOND;

@@ -1,9 +1,9 @@
 package com.lhw.quartz.job;
 
 import com.lhw.quartz.model.Task;
+import com.lhw.quartz.util.DateUtil;
 import org.quartz.*;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -13,8 +13,6 @@ import java.util.Date;
  * @modified By：
  */
 public class HelloJob implements Job {
-
-    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
@@ -34,11 +32,11 @@ public class HelloJob implements Job {
         StringBuilder sb = new StringBuilder();
         sb.append("|--- id :" + task.getId() + "\n")
                 .append("|--- taskName : " + task.getTaskName() + "\n")
-                .append("|--- startTime : " + sdf.format(task.getStartTime()) + "\n")
-                .append("|--- endTime" + sdf.format(task.getEndTime()) + "\n")
+                .append("|--- startTime : " + DateUtil.formatToString(task.getStartTime()) + "\n")
+                .append("|--- endTime" + DateUtil.formatToString(task.getEndTime()) + "\n")
                 .append("|--- status : " + task.getStatus() + "\n")
                 .append("|--- taskType : " + task.getTaskType() + "\n")
-                .append("|--- nowTime : " + sdf.format(new Date()));
+                .append("|--- nowTime : " + DateUtil.formatToString(new Date()));
         System.out.println(sb.toString());
 
         System.out.println("触发器详情：");

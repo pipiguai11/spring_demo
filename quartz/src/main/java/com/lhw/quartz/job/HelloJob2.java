@@ -1,8 +1,12 @@
 package com.lhw.quartz.job;
 
+import com.lhw.quartz.util.DateUtil;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * @author ：linhw
@@ -24,6 +28,7 @@ public class HelloJob2 implements Job {
         System.out.println("HelloJob2任务被调度了。。。。。。。。。。。。。。。。");
         System.out.println("hello world");
         System.out.println("name = " + name);
+        System.out.println("time : " + DateUtil.formatToString(new Date()));
     }
 
     public void setName(String name){

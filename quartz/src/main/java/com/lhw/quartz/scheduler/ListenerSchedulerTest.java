@@ -3,6 +3,7 @@ package com.lhw.quartz.scheduler;
 import com.lhw.quartz.job.HelloJob2;
 import com.lhw.quartz.jobdetail.JobDetailHandler;
 import com.lhw.quartz.listener.job.MyJobListener;
+import com.lhw.quartz.listener.trigger.MyTriggerListener;
 import com.lhw.quartz.trigger.TriggerHandler;
 import org.quartz.JobDetail;
 import org.quartz.Scheduler;
@@ -10,7 +11,6 @@ import org.quartz.SchedulerException;
 import org.quartz.Trigger;
 import org.quartz.impl.StdSchedulerFactory;
 import org.quartz.impl.matchers.GroupMatcher;
-import org.quartz.impl.matchers.KeyMatcher;
 
 /**
  * @author ：linhw
@@ -22,6 +22,24 @@ public class ListenerSchedulerTest {
 
     public static void main(String[] args) throws SchedulerException {
 
+        Scheduler scheduler = initScheduler();
+//        jobListener(scheduler);
+        triggerListener(scheduler);
+    }
+
+    private static void jobListener(Scheduler scheduler) throws SchedulerException {
+        //订阅group组的所有job
+        scheduler.getListenerManager().addJobListener(new MyJobListener(), GroupMatcher.groupEquals("group"));
+        scheduler.start();
+    }
+
+    private static void triggerListener(Scheduler scheduler) throws SchedulerException {
+        //订阅group组的所有trigger
+        scheduler.getListenerManager().addTriggerListener(new MyTriggerListener(), GroupMatcher.groupEquals("group"));
+        scheduler.start();
+    }
+
+    private static Scheduler initScheduler() throws SchedulerException {
         Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
         scheduler.getContext().putIfAbsent("skey","listenerScheduler");
 
@@ -31,10 +49,7 @@ public class ListenerSchedulerTest {
         Trigger trigger = TriggerHandler.createSimpleTrigger();
 
         scheduler.scheduleJob(jobDetail,trigger);
-        //订阅group组的所有job
-        scheduler.getListenerManager().addJobListener(new MyJobListener(), GroupMatcher.groupEquals("group"));
-        scheduler.start();
-
+        return scheduler;
     }
 
 }

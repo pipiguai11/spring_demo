@@ -17,12 +17,14 @@ spring:
             instancName: clusteredScheduler
             instanceId: AUTO
           jobStore:
+#            这里的jobStore.class配置的是调度过程存储方式，如果是RAMJobStore，则是存放再内存中，当应用关闭后，所有的调度信息都会丢失，而JobStoreTX或者说是LocalDataSourceJobStore则是表示将所有数据存放到数据库中
             class: org.springframework.scheduling.quartz.LocalDataSourceJobStore # springboot 2.5.6版本之后就不是用JobStoreTX了 #org.quartz.impl.jdbcjobstore.JobStoreTX
+#            class: org.quartz.simpl.RAMJobStore # RAMJobStore是使用最简单的JobStore，它也是性能最高的（在CPU时间方面）。RAMJobStore以其明显的方式获取其名称：它将其所有数据保存在RAM中
             driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate #StdJDBCDelegate说明支持集群
             tablePrefix: qrtz_
             isClustered: true
             clusterCheckinInterval: 1000
-            useProperties: false
+            useProperties: true  # 指示JDBCJobStore将JobDataMaps中的所有值都作为字符串，因此可以作为名称 - 值对存储而不是在BLOB列中以其序列化形式存储更多复杂的对象。从长远来看，这是更安全的，因为您避免了将非String类序列化为BLOB的类版本问题
           threadPool:
             class: org.quartz.simpl.SimpleThreadPool
             threadCount: 20

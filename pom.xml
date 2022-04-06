@@ -27,6 +27,7 @@
         <module>interceptor</module>
         <module>distributed_id</module>
         <module>transaction</module>
+        <module>cors</module>
     </modules>
 
     <properties>

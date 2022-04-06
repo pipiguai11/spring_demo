@@ -1,0 +1,6 @@
+lhw:
+  cors:
+    allow: true # 是否允许跨域请求
+    mapping: "/**" # 限定的跨域资源
+    method: "*" # 允许的跨域请求方式，* 需要以单引号'
+    origin: "*" # 允许的请求域

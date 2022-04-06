@@ -25,18 +25,17 @@ public class ListenerSchedulerTest {
         Scheduler scheduler = initScheduler();
 //        jobListener(scheduler);
         triggerListener(scheduler);
+        scheduler.start();
     }
 
     private static void jobListener(Scheduler scheduler) throws SchedulerException {
         //订阅group组的所有job
         scheduler.getListenerManager().addJobListener(new MyJobListener(), GroupMatcher.groupEquals("group"));
-        scheduler.start();
     }
 
     private static void triggerListener(Scheduler scheduler) throws SchedulerException {
         //订阅group组的所有trigger
         scheduler.getListenerManager().addTriggerListener(new MyTriggerListener(), GroupMatcher.groupEquals("group"));
-        scheduler.start();
     }
 
     private static Scheduler initScheduler() throws SchedulerException {

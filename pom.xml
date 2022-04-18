@@ -28,6 +28,7 @@
         <module>distributed_id</module>
         <module>transaction</module>
         <module>cors</module>
+        <module>sso</module>
     </modules>
 
     <properties>

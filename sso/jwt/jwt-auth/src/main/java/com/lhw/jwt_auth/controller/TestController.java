@@ -1,5 +1,6 @@
 package com.lhw.jwt_auth.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("user")
 public class TestController {
 
+    @PreAuthorize("hasAnyRole('admin')")
     @RequestMapping(name = "/query", method = RequestMethod.GET)
     public String query(){
         return "success";

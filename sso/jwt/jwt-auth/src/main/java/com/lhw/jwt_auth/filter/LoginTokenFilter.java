@@ -40,9 +40,12 @@ public class LoginTokenFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         try {
-            User sysUser = new ObjectMapper().readValue(request.getInputStream(), User.class);
+//            User sysUser = new ObjectMapper().readValue(request.getInputStream(), User.class);
+            String userName = request.getHeader("username");
+            String password = request.getHeader("pwd");
 
-            UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(sysUser.getUsername(), sysUser.getPassword());
+//            UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(sysUser.getUsername(), sysUser.getPassword());
+            UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(userName, password);
             return authenticationManager.authenticate(authRequest);
         }catch (Exception e){
             try {

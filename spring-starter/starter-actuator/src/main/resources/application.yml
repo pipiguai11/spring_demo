@@ -1,0 +1,18 @@
+## 监控配置，这个可以用于检测系统的健康情况、当前的Beans、系统的缓存等
+## 查看当前所有的bean： 启动后直接访问：http://localhost:8081/actuator/z/beans
+## 查看健康状态： http://localhost:8081/actuator/z/health
+## 查看缓存： http://localhost:8081/actuator/z/caches
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*' # web端允许的根路径
+      base-path: '/actuator/z' # 访问的路径：如http://localhost:8081/actuator/z/beans 可以访问到当前上下文监听注册的所有bean信息
+    health:
+      show-details: 'always'
+  health:
+    elasticsearch:
+      enabled: false
+  server:
+    port: 8081  # 监听端口，想要查看当前应用的状态信息时，访问这个端口

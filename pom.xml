@@ -27,8 +27,8 @@
         <module>interceptor</module>
         <module>distributed_id</module>
         <module>transaction</module>
-        <module>cors</module>
         <module>sso</module>
+        <module>spring-starter</module>
     </modules>
 
     <properties>

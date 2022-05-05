@@ -10,8 +10,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 //@MyEnableAutoConfigByBean
 //@MyEnableAutoConfigByMyConfig
-@MyEnableAutoConfigByDefinitionRegister
-//@MyEnableAutoConfig
+//@MyEnableAutoConfigByDefinitionRegister
+@MyEnableAutoConfig
 public class ImportAnnotationApplication {
 
     public static void main(String[] args) {

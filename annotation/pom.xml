@@ -13,6 +13,7 @@
 
     <modules>
         <module>value_annotation</module>
+        <module>import_annotation</module>
     </modules>
 
     <build>

@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    db1:
+      username: postgres
+      password: postgres
+      jdbc-url: jdbc:postgresql://127.0.0.1:5432/postgres?currentSchema=lhw
+      driver-class-name: org.postgresql.Driver
+    db2:
+      username: lhw
+      password: 12345678
+      jdbc-url: jdbc:postgresql://127.0.0.1:5433/lhw?currentSchema=lhw
+      driver-class-name: org.postgresql.Driver

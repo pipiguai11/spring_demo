@@ -29,6 +29,7 @@
         <module>transaction</module>
         <module>sso</module>
         <module>spring-starter</module>
+        <module>ioc</module>
     </modules>
 
     <properties>

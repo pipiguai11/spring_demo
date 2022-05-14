@@ -4,15 +4,17 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.lhw</groupId>
-        <artifactId>spring_demo</artifactId>
+        <artifactId>ioc</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>ioc</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>spring_bean</artifactId>
 
-    <modules>
-        <module>ioc_container</module>
-        <module>spring_bean</module>
-    </modules>
+    <dependencies>
+        <dependency>
+            <groupId>com.lhw</groupId>
+            <artifactId>ioc_container</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 </project>

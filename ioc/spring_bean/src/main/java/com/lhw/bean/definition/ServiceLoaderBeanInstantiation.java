@@ -18,7 +18,7 @@ import java.util.ServiceLoader;
  *          1、ServiceLoader都是基于接口去读取的
  *              意思就是基于接口去读取实现类
  *          2、在读取之前要先按照要求创建一个文件
- *              在META-INF.services目录下，创建一个名为接口的全路径的文件（com.lhw.bean.interfaces.UserTestInterface）
+ *              在META-INF.services目录下，创建一个名为接口的全路径的文件（{@link com.lhw.bean.interfaces.UserTestInterface}）
  *              然后在这个文件中写入所有实现类的全路径名
  *          3、然后就可以使用ServiceLoader直接读取了
  *

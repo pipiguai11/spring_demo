@@ -12,6 +12,10 @@ import org.springframework.context.support.GenericApplicationContext;
  */
 public class BeanInstantiation {
 
+    /**
+     * 手动启动应用上下文进行注册
+     * @param args
+     */
     public static void main(String[] args) {
         GenericApplicationContext applicationContext = new GenericApplicationContext();
         applicationContext.registerBean( "userFactory",UserFactoryBean.class);

@@ -4,15 +4,9 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.lhw</groupId>
-        <artifactId>spring_demo</artifactId>
+        <artifactId>event</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>ioc</artifactId>
-    <packaging>pom</packaging>
-
-    <modules>
-        <module>ioc_container</module>
-        <module>spring_bean</module>
-    </modules>
+    <artifactId>simple-weather-event</artifactId>
 
 </project>
